@@ -1,0 +1,24 @@
+@(title: String)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>@title</title>
+	</head>
+	<body>
+		<form action="doLogin">
+			<table class="employee-list">
+				<tr>
+					<td>用户名</td><td><input name="username" type="text"></td>
+				</tr>
+				<tr>
+					<td>密码</td><td><input name="password" type="password" placeholder="6 characters minimum"/></td>
+				</tr>
+				<tr>
+					<td><button type="submit">立即登录</button></td>
+				</tr>
+			</table>
+		</form>
+		<a href="http://localhost:9000/register">注册</a>
+	</body>
+</html>
