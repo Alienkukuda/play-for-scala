@@ -3,8 +3,7 @@ package models
 case class User (
 	id: Long = 0,
 	email: String,
-	username: String,
-	avatar: String,
+	userName: String,
 	city: String,
 	password: String
 )

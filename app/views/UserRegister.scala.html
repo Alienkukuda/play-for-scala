@@ -2,20 +2,32 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script>
-			function test(){
-				var form = new FormData(document.getElementById("rf"));
-				$.ajax({
-					url:"localhost:9000/doRegister",
-					type:"post",
-					data:form,
-					processData:false,
-					contentType:false,
-					success:function(data){
-						alert("Data Loaded: " + data);
-					}
-				});
-			}
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript">
+						function test() {
+							console.log($('#rf').serialize())
+							var email = $("#email").val();
+							var userName = $("#userName").val();
+							var city = $("#city").val();
+							var password = $("#password").val();
+							$.ajax({
+								//几个参数需要注意一下
+								type: "POST",//方法类型
+								dataType: "json",//预期服务器返回的数据类型
+								url: "http://localhost:9000/doRegister" ,//url
+								data: {email: email,userName: userName,city: city,password: password},
+								success: function (result) {
+									console.log("2asda");//打印服务端返回的数据(调试用)
+									if (result.resultCode == 200) {
+										alert("SUCCESS");
+									};
+								},
+								error: function(res) {
+									alert("异常！");
+									console.log(res)
+								}
+							});
+						}
 		</script>
 		<meta charset="UTF-8">
 		<title>@title</title>
@@ -27,10 +39,7 @@
 					<td>邮箱</td><td><input id="email" name="email" type="text"></td>
 				</tr>
 				<tr>
-					<td>用户名</td><td><input id="username" name="username" type="text"></td>
-				</tr>
-				<tr>
-					<td>头像</td><td><input id="avator" name="avatar" type="file"></td>
+					<td>用户名</td><td><input id="userName" name="userName" type="text"></td>
 				</tr>
 				<tr>
 					<td>城市</td><td><input id="city" name="city" type="text"></td>
@@ -39,7 +48,7 @@
 					<td>密码</td><td><input id="password" name="password" type="password" placeholder="6 characters minimum"/></td>
 				</tr>
 				<tr>
-					<td><button type="submit" onclick="test();">立即注册</button></td>
+					<td><input type="button" value="立即注册" onclick="test()"></td>
 				</tr>
 			</table>
 		</form>

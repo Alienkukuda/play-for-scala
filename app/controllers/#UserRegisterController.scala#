@@ -1,0 +1,31 @@
+package controllers
+
+import javax.inject.Inject
+import models.User
+import play.api.mvc.{AbstractController, AnyContent, ControllerComponents, Request}
+import services.UserService
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+import play.api.mvc.Result
+
+class UserRegisterController @Inject() (cc: ControllerComponents) extends AbstractController(cc){
+
+	def register = Action {
+    val userservice = new UserService
+    for {
+      r <- userservice.getUser(7l)
+    } yield {
+      println("---------")
+      println(r)
+      println("----------")
+    }
+
+    Ok(views.html.UserRegister("用户注册"))
+	}
+
+	def doRegister = Action { implicit request: Request[AnyContent] =>
+		println(request.body)
+		val userservice = new UserService
+		Ok(views.html.UserRegister("用户注册"))
+	}
+}

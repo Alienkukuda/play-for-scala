@@ -2,11 +2,12 @@ package services
 
 import com.typesafe.config.ConfigFactory
 import models.User
-import libs.dal.{QuillIOSupport}
+import libs.dal.QuillIOSupport
 import play.api.Configuration
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+
 
 class UserService extends QuillIOSupport {
 	val config = Configuration(ConfigFactory.load())
@@ -28,17 +29,4 @@ class UserService extends QuillIOSupport {
 	def addUser(user: User) = QDB.io {
 				Users.insert(lift(user)).returning(_.id)
 		}.run
-}
-
-object test {
-	def main(args: Array[String]): Unit = {
-		val us = new UserService()
-		val user = User(email = "ggg",username = "jjj",avatar = "jjj",city = "jj",password ="cccc")
-		for {
-			id <- us.addUser(user)
-			userR <- us.getUser(id)
-		} yield {
-			println(s"the User is ${userR}")
-		}
-	}
 }
