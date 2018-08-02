@@ -1,24 +1,53 @@
 @(title: String)
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			function test() {
+				console.log($('#rf').serialize())
+				var userName = $("#userName").val();
+				var password = $("#password").val();
+				$.ajax({
+					type: "POST",//方法类型
+					dataType: "text",//预期服务器返回的数据类型
+					url: "/doLogin" ,
+					data: {userName: userName, password: password},
+					success: function (result) {
+						console.log(result)//字符串形式
+						var resultJSON = JSON.parse(result)//转化为json形式
+						console.log(resultJSON)
+						if (resultJSON.suc == true)
+							window.location.href = "/loginSuc/" + resultJSON.userName;
+						else if (resultJSON.suc == false)
+							alert("用户密码不匹配！")
+						else
+							alert("用户不存在")
+					},
+					error: function(res) {
+						alert("异常！");
+						console.log(res)
+					}
+				});
+			}
+		</script>
 		<meta charset="UTF-8">
 		<title>@title</title>
 	</head>
 	<body>
-		<form action="doLogin">
+		<form id="rf">
 			<table class="employee-list">
 				<tr>
-					<td>用户名</td><td><input name="username" type="text"></td>
+					<td>用户名</td><td><input id="userName" name="userName" type="text"></td>
 				</tr>
 				<tr>
-					<td>密码</td><td><input name="password" type="password" placeholder="6 characters minimum"/></td>
+					<td>密码</td><td><input id="password" name="password" type="password" placeholder="6 characters minimum"/></td>
 				</tr>
 				<tr>
-					<td><button type="submit">立即登录</button></td>
+					<td><input type="button" value="登录" onclick="test()"></td>
 				</tr>
 			</table>
 		</form>
-		<a href="http://localhost:9000/register">注册</a>
+		<a href="http://localhost:9000/register">注册界面</a>
 	</body>
 </html>

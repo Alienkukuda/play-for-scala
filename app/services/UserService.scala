@@ -25,8 +25,12 @@ class UserService extends QuillIOSupport {
 		Users.filter(_.id == lift(id))
 	}.run.map(_.headOption)
 
+	def getUser(userName: String): Future[Option[User]] = QDB.io {
+		Users.filter(_.userName == lift(userName))
+	}.run.map(_.headOption)
+
 
 	def addUser(user: User) = QDB.io {
-				Users.insert(lift(user)).returning(_.id)
-		}.run
+		Users.insert(lift(user)).returning(_.id)
+	}.run
 }

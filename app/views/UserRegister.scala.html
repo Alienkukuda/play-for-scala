@@ -4,30 +4,27 @@
 	<head>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script type="text/javascript">
-						function test() {
-							console.log($('#rf').serialize())
-							var email = $("#email").val();
-							var userName = $("#userName").val();
-							var city = $("#city").val();
-							var password = $("#password").val();
-							$.ajax({
-								//几个参数需要注意一下
-								type: "POST",//方法类型
-								dataType: "json",//预期服务器返回的数据类型
-								url: "http://localhost:9000/doRegister" ,//url
-								data: {email: email,userName: userName,city: city,password: password},
-								success: function (result) {
-									console.log("2asda");//打印服务端返回的数据(调试用)
-									if (result.resultCode == 200) {
-										alert("SUCCESS");
-									};
-								},
-								error: function(res) {
-									alert("异常！");
-									console.log(res)
-								}
-							});
-						}
+			function test() {
+				console.log($('#rf').serialize())
+				var email = $("#email").val();
+				var userName = $("#userName").val();
+				var city = $("#city").val();
+				var password = $("#password").val();
+				$.ajax({
+					type: "POST",//方法类型
+					dataType: "text",//预期服务器返回的数据类型
+					url: "/doRegister" ,
+					data: {email: email,userName: userName,city: city,password: password},
+					success: function (result) {
+						console.log(result);//打印服务端返回的数据(调试用)
+						alert("REGISTER SUCCESS");
+					},
+					error: function(res) {
+						alert("异常！");
+						console.log(res)
+					}
+				});
+			}
 		</script>
 		<meta charset="UTF-8">
 		<title>@title</title>

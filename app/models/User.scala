@@ -7,3 +7,7 @@ case class User (
 	city: String,
 	password: String
 )
+case class loginSuccessMsg (
+	title: String,
+	userName: String
+)

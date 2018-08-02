@@ -1,0 +1,23 @@
+@import play.api.libs.json.JsObject
+@(userMsg: loginSuccessMsg)
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(function () {
+				$.get("http://api.openweathermap.org/data/2.5/weather?q=Hangzhou&APPID=db9fe8bd7dd365794a091c26e9b7d2c5", function(data) {
+					console.log(data)
+					console.log(data.name)
+					$(".weatherDisplay").html("省市:" + data.name + '\n' + "天气:" + data.weather[0].main)
+				},'json');
+			})
+		</script>
+		<meta charset="UTF-8">
+		<title>@userMsg.title</title>
+	</head>
+	<body>
+		<div>@userMsg.userName 欢迎您</div>
+		<div class="weatherDisplay"></div>
+	</body>
+</html>
