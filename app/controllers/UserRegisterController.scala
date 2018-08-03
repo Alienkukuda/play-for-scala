@@ -21,12 +21,13 @@ class UserRegisterController @Inject() (cc: ControllerComponents) extends Abstra
 	}
 
 	def doRegister = Action.async(parse.form(userForm)) { implicit request =>
-		val (email, userName, city, password) = request.body
-//		println(userData)
-//		val newUser = User(userData.email, userData.userName,userData.city,userData.password)
+		val (email, userName, avatar, city, password) = request.body
+		//		println(userData)
+		//		val newUser = User(userData.email, userData.userName,userData.city,userData.password)
 		val user = User(
 			email = email,
 			userName = userName,
+			avatar = avatar,
 			city = city,
 			password = password
 		)
@@ -34,8 +35,9 @@ class UserRegisterController @Inject() (cc: ControllerComponents) extends Abstra
 			id <- userService.addUser(user)
 			userR <- userService.getUser(id)
 		} yield {
+			println("--------" + userR)
 			userR match {
-				case Some(r) => Ok(r.toString + "注册失败")
+				case Some(r) => Ok(r.userName.toString + "注册成功")
 				case _ => Ok("注册失败")
 			}
 		}
@@ -44,9 +46,10 @@ class UserRegisterController @Inject() (cc: ControllerComponents) extends Abstra
 	val userForm = Form(
 		tuple(
 			"email" -> email,
-			"userName" -> text(minLength = 6, maxLength = 12),
+			"userName" -> text,
+			"avatar" -> optional(text),
 			"city" -> text,
-			"password" -> text(minLength = 6, maxLength = 12)
+			"password" -> text
 		)
 	)
 }

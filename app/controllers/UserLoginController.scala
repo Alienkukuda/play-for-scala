@@ -23,11 +23,17 @@ class UserLoginController @Inject() (cc: ControllerComponents) extends AbstractC
 		}
 	}
 
-	def loginSuc(userName: String) = Action.async { implicit request =>
+	def loginSuc = Action.async { implicit request =>
 		Future {
-			print(userName)
-			val msgMsg = loginSuccessMsg("用户主页", userName)
-			Ok(views.html.loginSuc(msgMsg))
+			request.session.get("connected").map { userName =>
+			{
+				print(userName)
+				val msgMsg = loginSuccessMsg("用户主页", userName)
+				Ok(views.html.loginSuc(msgMsg))
+			}
+		}.getOrElse {
+			Unauthorized("Oops, you are not connected")
+			}
 		}
 	}
 
@@ -39,7 +45,8 @@ class UserLoginController @Inject() (cc: ControllerComponents) extends AbstractC
 			userR match {
 				case Some(r) => {
 					if(password.equals(r.password))
-						Ok(Json.obj("suc" -> true, "userName" -> r.userName))
+						Ok(Json.obj("suc" -> true, "userName" -> userName)).withSession(
+							"connected" -> userName)
 					else
 						Ok(Json.obj("suc" -> false))
 				}

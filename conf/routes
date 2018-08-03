@@ -6,6 +6,6 @@
 GET      /                controllers.EmployeeController.employeeList
 GET      /login           controllers.UserLoginController.login
 POST     /doLogin         controllers.UserLoginController.doLogin
-GET	     /loginSuc/:userName         controllers.UserLoginController.loginSuc(userName)
+GET	     /loginSuc         controllers.UserLoginController.loginSuc
 GET      /register        controllers.UserRegisterController.register
 POST     /doRegister      controllers.UserRegisterController.doRegister

@@ -4,32 +4,32 @@
 	<head>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script type="text/javascript">
-			function test() {
-				console.log($('#rf').serialize())
-				var userName = $("#userName").val();
-				var password = $("#password").val();
-				$.ajax({
-					type: "POST",//方法类型
-					dataType: "text",//预期服务器返回的数据类型
-					url: "/doLogin" ,
-					data: {userName: userName, password: password},
-					success: function (result) {
-						console.log(result)//字符串形式
-						var resultJSON = JSON.parse(result)//转化为json形式
-						console.log(resultJSON)
-						if (resultJSON.suc == true)
-							window.location.href = "/loginSuc/" + resultJSON.userName;
-						else if (resultJSON.suc == false)
-							alert("用户密码不匹配！")
-						else
-							alert("用户不存在")
-					},
-					error: function(res) {
-						alert("异常！");
-						console.log(res)
-					}
-				});
-			}
+						function test() {
+							console.log($('#rf').serialize())
+							var userName = $("#userName").val();
+							var password = $("#password").val();
+							$.ajax({
+								type: "POST",//方法类型
+								dataType: "text",//预期服务器返回的数据类型
+								url: "/doLogin" ,
+								data: {userName: userName, password: password},
+								success: function (result) {
+									console.log(result)//字符串形式
+									var resultJSON = JSON.parse(result)//转化为json形式
+									console.log(resultJSON)
+									if (resultJSON.suc == true)
+										window.location.href = "/loginSuc";
+									else if (resultJSON.suc == false)
+										alert("用户密码不匹配！")
+									else
+										alert("用户不存在")
+								},
+								error: function(res) {
+									alert("异常！");
+									console.log(res)
+								}
+							});
+						}
 		</script>
 		<meta charset="UTF-8">
 		<title>@title</title>
